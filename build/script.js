@@ -1,14 +1,21 @@
-var onePlayerButton = document.querySelector('#one_player');
-var twoPlayersButton = document.querySelector('#two_player');
-var restartButton = document.querySelector('#restart');
-var changeModeButton = document.querySelector('#change_mode');
 var result = document.querySelector('#result');
 var againstLabel = document.querySelector('#against');
-var cells = document.querySelectorAll('td');
-var main = document.querySelector(".main");
-var header = document.querySelector(".header");
+//
+// let cells: NodeListOf<HTMLTableCellElement> = document.querySelectorAll('td')
 var mode = "computer";
 var count = 0;
+var field = document.querySelector('#field');
+var cells = [];
+for (var i = 0; i < 3; ++i) {
+    var row = document.createElement('tr');
+    for (var j = 0; j < 3; j++) {
+        var cell = document.createElement('td');
+        cell.classList.add('cell');
+        row.appendChild(cell);
+        cells.push(cell);
+    }
+    field.appendChild(row);
+}
 function onOnePlayerClicked() {
     choosePlayerMode("computer");
 }
@@ -44,6 +51,8 @@ function onCellClicked(index) {
 function onRestartClicked() {
     clearField();
 }
+var main = document.querySelector(".main");
+var header = document.querySelector(".header");
 function onChangeMode() {
     hideElement(main);
     displayElement(header);
@@ -117,9 +126,13 @@ function displayElement(element) {
 function hideElement(element) {
     element.style.display = "none";
 }
+var onePlayerButton = document.querySelector('#one_player');
 onePlayerButton.addEventListener("click", onOnePlayerClicked);
+var twoPlayersButton = document.querySelector('#two_player');
 twoPlayersButton.addEventListener("click", onTwoPlayersClicked);
+var restartButton = document.querySelector('#restart');
 restartButton.addEventListener("click", onRestartClicked);
+var changeModeButton = document.querySelector('#change_mode');
 changeModeButton.addEventListener("click", onChangeMode);
 var _loop_1 = function (i) {
     cells[i].addEventListener('click', function () { onCellClicked(i); });

@@ -1,16 +1,23 @@
-let onePlayerButton: HTMLButtonElement = document.querySelector('#one_player')
-let twoPlayersButton: HTMLButtonElement = document.querySelector('#two_player')
-let restartButton: HTMLButtonElement = document.querySelector('#restart')
-let changeModeButton: HTMLButtonElement = document.querySelector('#change_mode')
-let result: HTMLElement = document.querySelector('#result')
-let againstLabel: HTMLElement = document.querySelector('#against')
-
-let cells: NodeListOf<HTMLTableCellElement> = document.querySelectorAll('td')
-let main: HTMLElement = document.querySelector(".main")
-let header: HTMLElement = document.querySelector(".header")
+const result: HTMLElement = document.querySelector('#result')
+const againstLabel: HTMLElement = document.querySelector('#against')
+//
+// let cells: NodeListOf<HTMLTableCellElement> = document.querySelectorAll('td')
 
 let mode: string = "computer"
 let count: number = 0
+
+const field: HTMLTableCellElement = document.querySelector('#field')
+const cells: Array<HTMLTableCellElement> = []
+for (let i = 0; i < 3; ++i) {
+    let row: HTMLTableRowElement = document.createElement('tr')
+    for (let j = 0; j < 3; j++) {
+        let cell: HTMLTableCellElement = document.createElement('td')
+        cell.classList.add('cell')
+        row.appendChild(cell)
+        cells.push(cell)
+    }
+    field.appendChild(row)
+}
 
 function onOnePlayerClicked(): void {
     choosePlayerMode("computer")
@@ -53,6 +60,8 @@ function onRestartClicked(): void {
     clearField()
 }
 
+const main: HTMLElement = document.querySelector(".main")
+const header: HTMLElement = document.querySelector(".header")
 function onChangeMode(): void {
     hideElement(main)
     displayElement(header)
@@ -63,9 +72,9 @@ function computerMove(): void {
         return
     }
     let notPlaced: boolean = true
-    let symb = getCurSymb()
+    const symb: string = getCurSymb()
     while (notPlaced) {
-        let index = Math.floor(Math.random() * 9)
+        let index: number = Math.floor(Math.random() * 9)
         if (!isTaken(index)) {
             placeSymb(index, symb)
             notPlaced = false
@@ -90,7 +99,7 @@ function checkWin(symb: string): boolean {
     return false
 }
 
-function choosePlayerMode(mode: string) {
+function choosePlayerMode(mode: string): void {
     clearField()
     this.mode = mode
     hideElement(header)
@@ -136,9 +145,16 @@ function hideElement(element: HTMLElement): void {
     element.style.display = "none"
 }
 
+const onePlayerButton: HTMLButtonElement = document.querySelector('#one_player')
 onePlayerButton.addEventListener("click", onOnePlayerClicked)
+
+const twoPlayersButton: HTMLButtonElement = document.querySelector('#two_player')
 twoPlayersButton.addEventListener("click", onTwoPlayersClicked)
+
+const restartButton: HTMLButtonElement = document.querySelector('#restart')
 restartButton.addEventListener("click", onRestartClicked)
+
+const changeModeButton: HTMLButtonElement = document.querySelector('#change_mode')
 changeModeButton.addEventListener("click", onChangeMode)
 
 for (let i = 0; i < cells.length; i++) {

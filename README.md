@@ -5,4 +5,4 @@
 
 ## Запись игры
 
-![запись игры](recording/chrome_FBJ5If3Z8c.gif)
+![запись игры](recording/gameplay.gif)

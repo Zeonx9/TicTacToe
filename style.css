@@ -20,7 +20,7 @@ div {
     text-align: center;
 }
 
-td {
+.cell {
     border: 2px solid #807f7d;
     border-radius: 4px;
     width: 40px;
@@ -29,7 +29,7 @@ td {
     color: #4d4d4d;
 }
 
-td:hover {
+.cell:hover {
     background: #fcf6d7;
 }
 
